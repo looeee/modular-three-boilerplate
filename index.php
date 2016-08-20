@@ -6,7 +6,7 @@
   <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="description" content="three npm module test">
-  
+
   <!-- remove tap highlighting on windows phones -->
   <meta name="msapplication-tap-highlight" content="no" />
 
@@ -16,11 +16,15 @@
   <link rel="stylesheet" type="text/css" href="styles/main.css" />
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,900' rel='stylesheet' type='text/css'>
 
-  <script src="scripts/vendor/heartcodeLoader.js"></script>
+  <script src="scripts/vendor/heartCodeLoader.js"></script>
   <script src="scripts/vendor/hammer.js"></script>
   <script src="scripts/vendor/TweenMax.min.js"></script>
 
   <script src="scripts/vendor/three/three.js"></script>
+
+  <!--<script src="scripts/vendor/three/js/Detector.js"></script>-->
+
+  <script src="scripts/vendor/three/stats.min.js"></script>
 
   <!-- Currently unused THREE plugins
   SHADERS
@@ -64,10 +68,7 @@
   <script src="scripts/vendor/three/js/shaders/VignetteShader.js"></script>
   <script src="scripts/vendor/three/js/postprocessing/RenderPass.js"></script>
 
-  <script src="scripts/vendor/three/js/Detector.js"></script>
-
   <script src="scripts/vendor/three/js/controls/OrbitControls.js"></script>
-  <script src="scripts/vendor/three/js/libs/stats.min.js"></script>
 
   <script src="scripts/vendor/three/js/loaders/TGALoader.js"></script>
   <script src="scripts/vendor/three/js/loaders/MTLLoader.js"></script>
@@ -78,14 +79,7 @@
 </head>
 
 <body>
-  <!--<div id="loadingOverlay" class="fullscreen hide">
-    <div id="loadingIcon" class="centred"></div>
-  </div>
-
-  <canvas id="background" class="fullscreen"></canvas>
-
-  <button id="animate" class="">Animate</button>
--->
+  
 </body>
 
 <script src="scripts/main.js"></script>

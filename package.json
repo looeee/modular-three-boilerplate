@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "lodash.throttle": "^4.0.1",
-    "npm-module-test": "git://github.com/looeee/npm_module_test.git"
+    "modular-three": "0.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",

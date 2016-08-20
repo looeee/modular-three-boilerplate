@@ -71,12 +71,14 @@ gulp.task('reload', () => {
   .pipe(livereload());
 });
 
+gulp.task('babel', bundle);
+
 //default task
 gulp.task('default', [], () => {
   livereload.listen();
   gulp.watch('scss/**/*.scss', ['sass']);
-  gulp.watch('src/**/*.js', bundle);
+  gulp.watch('src/**/*.js', ['babel']);
   gulp.watch('scripts/vendor/**/*.js', ['reload']);
-  gulp.watch('**/*.html', ['reload']);
-  gulp.watch('**/*.php', ['reload']);
+  gulp.watch('./index.php', ['reload']);
+  //gulp.watch('**/*.php', ['reload']);
 });
