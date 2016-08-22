@@ -1,7 +1,7 @@
 {
-  "name": "three_boilerpate",
+  "name": "modular-three_boilerpate",
   "version": "0.0.1",
-  "description": "THREE Template",
+  "description": "Boilerplate and Gulp build setup for Modular THREE",
   "main": "Gulpfile.babel.js",
   "author": {
     "name": "Lewy Blue",
@@ -38,16 +38,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/looeee/test_three_npm_module.git"
+    "url": "git+https://github.com/looeee/modular-three-boilerplate.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/looeee/test_three_npm_module/issues"
+    "url": "https://github.com/looeee/modular-three-boilerplate/issues"
   },
-  "homepage": "https://github.com/looeee/test_three_npm_module#readme",
+  "homepage": "https://github.com/looeee/modular-three-boilerplate#readme",
   "keywords": [
     "three.js",
     "boilerplate",
-    "webgl"
+    "webgl",
+    "es2015",
+    "es6"
   ]
 }

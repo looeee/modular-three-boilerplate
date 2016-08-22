@@ -1,4 +1,3 @@
-const projectname = 'three_template';
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');

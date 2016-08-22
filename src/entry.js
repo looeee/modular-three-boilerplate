@@ -5,9 +5,9 @@ import {
 }
 from './drawings/TestDrawing';
 
-modularTHREE.config.useHeartcodeLoader = false;
+modularTHREE.config.showStats = true;
 
 modularTHREE.init();
 
 const testDrawing = new TestDrawing();
-testDrawing.render(true);
+testDrawing.render();

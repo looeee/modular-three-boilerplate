@@ -4,7 +4,8 @@ import {
   Cube,
 } from '../objects/cube';
 
-// The following spec object can be omitted for the following defaults
+// The following spec objects are optional and can be omitted
+//for the defaults shown
 const rendererSpec = {
   canvasID: '',
   antialias: true,
@@ -18,7 +19,7 @@ const rendererSpec = {
   postprocessing: false,
 };
 
-// The following spec is optional and can be omitted for the defaults shown
+// Optional
 const cameraSpec = {
   type: 'PerspectiveCamera', //Or 'OrthographicCamera'
   near: 10,
