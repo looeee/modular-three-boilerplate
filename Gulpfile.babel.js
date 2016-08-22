@@ -78,6 +78,5 @@ gulp.task('default', [], () => {
   gulp.watch('scss/**/*.scss', ['sass']);
   gulp.watch('src/**/*.js', ['babel']);
   gulp.watch('scripts/vendor/**/*.js', ['reload']);
-  gulp.watch('./index.php', ['reload']);
-  //gulp.watch('**/*.php', ['reload']);
+  gulp.watch('./index.html', ['reload']);
 });
