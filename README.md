@@ -1,4 +1,4 @@
-# Modular Three Boilerplate #
+Modular Three Boilerplate
 ========
 
 ### ES2015 THREE.js boilerplate code designed for use with Modular THREE ([npm](https://www.npmjs.com/package/modular-three), [github](https://github.com/looeee/modular-three)). ###
@@ -8,8 +8,8 @@ Includes a Gulpfile which:
 * Compiles [SCSS](http://sass-lang.com/) and applies [Autoprefixer](https://github.com/postcss/autoprefixer) to your CSS.
 * Runs [Livereload](http://livereload.com/).
 
-### Requirements ###
-========
+Requirements
+------
 
 [Node.js](https://nodejs.org)
 
@@ -17,8 +17,8 @@ Includes a Gulpfile which:
 * Eslint, or an editor using Eslint. The .eslintrc file provided is setup to the the [Airbnb style guide](https://github.com/airbnb/javascript).
 * Livereload extension for [Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/livereload/).
 
-### Usage ###
-========
+Usage
+------
 
 Clone this repository into an empty folder
 
@@ -36,6 +36,8 @@ View index.html in your browser - it should show a red cube on a black backgroun
 
 Run the default Gulp task to watch for changes to code in the src and scss folders.
 
-This boilerplate includes a simple drawing setup to use [GSAP](http://greensock.com/gsap) for animation.
+This boilerplate includes a simple drawing setup to use [GSAP](http://greensock.com/gsap) for animation and show stats using [stats.js](https://github.com/mrdoob/stats.js/).
 
 For more detailed instructions on how to create and use drawings, see the [Modular THREE](https://www.npmjs.com/package/modular-three) readme.
+
+#### License MIT © Lewy Blue 2016 ####

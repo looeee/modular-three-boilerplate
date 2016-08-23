@@ -2,12 +2,12 @@ const modularTHREE = require('modular-three');
 
 import {
   Cube,
-} from '../objects/cube';
+} from '../meshObjects/cube';
 
 // The following spec objects are optional and can be omitted
 //for the defaults shown
 const rendererSpec = {
-  canvasID: '',
+  canvasID: '', //TODO: add this functionality, including check that ID is unique
   antialias: true,
   alpha: true, //true required for multiple scenes
   autoClear: true, //false required for multiple scenes
