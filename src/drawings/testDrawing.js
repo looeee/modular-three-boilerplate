@@ -38,7 +38,7 @@ export class TestDrawing extends modularTHREE.Drawing {
   constructor() {
     super(rendererSpec, cameraSpec);
   }
-
+  
   init() {
     this.cube = new Cube();
     this.scene.add(this.cube);
