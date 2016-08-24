@@ -14,7 +14,7 @@ Requirements
 [Node.js](https://nodejs.org)
 
 **Optional**:
-* Eslint, or an editor using Eslint. The .eslintrc file provided is setup to the the [Airbnb style guide](https://github.com/airbnb/javascript).
+* Eslint, or an editor using Eslint. The .eslintrc file provided is setup to use the the [Airbnb style guide](https://github.com/airbnb/javascript).
 * Livereload extension for [Chrome](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/livereload/).
 
 Usage

@@ -7,7 +7,7 @@ import {
 // The following spec objects are optional and can be omitted
 //for the defaults shown
 const rendererSpec = {
-  canvasID: '', //TODO: add this functionality, including check that ID is unique
+  canvasID: 'testDrawing', //TODO: add this functionality, including check that ID is unique
   antialias: true,
   alpha: true, //true required for multiple scenes
   autoClear: true, //false required for multiple scenes
@@ -17,6 +17,7 @@ const rendererSpec = {
   height: () => window.innerHeight,
   pixelRatio: window.devicePixelRatio,
   postprocessing: false,
+  useGSAP: false,
 };
 
 // Optional
@@ -26,7 +27,7 @@ const cameraSpec = {
   far: -10,
   position: new THREE.Vector3(0, 0, 100),
   //PerspectiveCamera only
-  fov: 45, //PerspectiveCamera only
+  fov: 45,
   aspect: () => window.innerWidth / window.innerHeight,
   // OrthographicCamera only
   width: () => window.innerWidth,
@@ -35,11 +36,22 @@ const cameraSpec = {
 
 export class TestDrawing extends modularTHREE.Drawing {
   constructor() {
-    super(cameraSpec, rendererSpec);
+    super(rendererSpec, cameraSpec);
   }
 
   init() {
-    const cube = new Cube();
-    this.scene.add(cube);
+    this.cube = new Cube();
+    this.scene.add(this.cube);
+
+    this.initAnimations();
+  }
+
+  initAnimations() {
+    const rotateCube = () => {
+      this.cube.rotation.x += 0.005;
+      this.cube.rotation.y += 0.01;
+    };
+
+    this.perFrameFunctions.push(rotateCube);
   }
 }

@@ -6,6 +6,7 @@ import {
 from './drawings/TestDrawing';
 
 modularTHREE.config.showStats = true;
+modularTHREE.config.showHeartcodeLoader = true;
 
 modularTHREE.init();
 
