@@ -7,7 +7,7 @@ import {
 // The following spec objects are optional and can be omitted
 //for the defaults shown
 const rendererSpec = {
-  canvasID: 'testDrawing', //TODO: add this functionality, including check that ID is unique
+  canvasID: 'testDrawing',
   antialias: true,
   alpha: true, //true required for multiple scenes
   autoClear: true, //false required for multiple scenes
@@ -17,7 +17,7 @@ const rendererSpec = {
   height: () => window.innerHeight,
   pixelRatio: window.devicePixelRatio,
   postprocessing: false,
-  useGSAP: false,
+  useGSAP: true,
 };
 
 // Optional
@@ -38,20 +38,37 @@ export class TestDrawing extends modularTHREE.Drawing {
   constructor() {
     super(rendererSpec, cameraSpec);
   }
-  
-  init() {
-    this.cube = new Cube();
-    this.scene.add(this.cube);
 
+  init() {
+    this.initObjects();
     this.initAnimations();
   }
 
-  initAnimations() {
-    const rotateCube = () => {
-      this.cube.rotation.x += 0.005;
-      this.cube.rotation.y += 0.01;
-    };
+  initObjects() {
+    this.cube = new Cube();
 
-    this.perFrameFunctions.push(rotateCube);
+    this.cube.rotation.set(-2, 2, 0);
+    this.cube.position.set(0, 30, 0);
+
+    this.scene.add(this.cube);
+  }
+
+  initAnimations() {
+    const cubeTimeline = new TimelineMax();
+
+    const cubeFallTween = TweenMax.to(this.cube.position, 3.5, {
+      y: -20,
+      ease: Bounce.easeOut,
+    });
+
+    const cubeRotateTween = TweenMax.to(this.cube.rotation, 3.5, {
+      x: 0,
+      y: 0,
+      ease: Sine.easeInOut,
+    });
+
+    cubeTimeline.add(cubeFallTween);
+
+    cubeTimeline.add(cubeRotateTween, 0);
   }
 }
