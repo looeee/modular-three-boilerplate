@@ -2,55 +2,59 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const autoprefixer = require('gulp-autoprefixer');
-const babel = require('rollup-plugin-babel');
-const livereload = require('gulp-livereload');
-const browserify = require('browserify');
-const rollupify = require('rollupify');
-const watchify = require('watchify');
-const source = require('vinyl-source-stream');
 const gutil = require('gulp-util');
+const livereload = require('gulp-livereload');
+const rollup = require('rollup').rollup;
+const babel = require('rollup-plugin-babel');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const filesize = require('rollup-plugin-filesize');
+const uglify = require('rollup-plugin-uglify');
 
-// add custom browserify options here
-const customOpts = {
-  entries: ['src/entry.js'],
-  debug: true,
+//Compile glsl code
+const glsl = () => {
+  return {
+    transform(code, id) {
+      if (!/\.glsl$/.test(id)) return;
+
+      return 'export default ' + JSON.stringify(
+        code
+        .replace(/[ \t]*\/\/.*\n/g, '')
+        .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
+        .replace(/\n{2,}/g, '\n')
+      ) + ';';
+    },
+  };
 };
-const opts = Object.assign({}, watchify.args, customOpts);
-const b = watchify(browserify(opts).transform('rollupify', {
-  config: {
+
+gulp.task('bundle', () => {
+  return rollup({
+    entry: './src/entry.js',
     plugins: [
+      nodeResolve({
+        jsnext: true,
+        module: false,
+      }),
+      glsl(),
       babel({
         exclude: 'node_modules/**',
         babelrc: false,
         presets: ['es2015-loose-rollup'],
-        plugins: ['babel-plugin-transform-decorators-legacy'],
       }),
+      gutil.log('Pre and post-uglify filesizes:'),
+      filesize(),
+      uglify(),
+      filesize(),
     ],
-  },
-}));
+  })
+    .then((bundle) => {
+      return bundle.write({
+        format: 'iife',
+        dest: 'scripts/main.js',
+      });
+    });
+});
 
-function bundle() {
-  return b.bundle()
-    // log errors if they happen
-    .on('error', (err) => {
-      // print the error
-      gutil.log(
-        gutil.colors.red('Browserify compile error:'),
-        err.message
-      );
-      // end this stream
-      this.emit('end');
-    })
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('scripts/'))
-    .pipe(livereload());
-}
-
-//b.on('update', bundle); // on any dep update, runs the bundler
-b.on('log', gutil.log); // output build logs to terminal
-
-
-//Put all css/scss tasks here
+//Compile SCSS to CSS
 gulp.task('sass', () => {
   return gulp.src('scss/**/*.scss')
     .pipe(sass())
@@ -70,13 +74,11 @@ gulp.task('reload', () => {
   .pipe(livereload());
 });
 
-gulp.task('babel', bundle);
-
-//default task
-gulp.task('default', [], () => {
+// //default task
+gulp.task('default', ['bundle'], () => {
   livereload.listen();
   gulp.watch('scss/**/*.scss', ['sass']);
-  gulp.watch('src/**/*.js', ['babel']);
+  gulp.watch('src/**/*.js', ['bundle']);
   gulp.watch('scripts/vendor/**/*.js', ['reload']);
   gulp.watch('./index.html', ['reload']);
 });

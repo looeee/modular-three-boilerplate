@@ -1,4 +1,4 @@
-const modularTHREE = require('modular-three');
+import * as modularTHREE from 'modular-three';
 
 import {
   Cube,

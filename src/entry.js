@@ -1,9 +1,9 @@
-const modularTHREE = require('modular-three');
+import * as modularTHREE from 'modular-three';
 
 import {
   TestDrawing,
 }
-from './drawings/TestDrawing';
+from './drawings/TestDrawing.js';
 
 modularTHREE.config.showStats = true;
 modularTHREE.config.showHeartcodeLoader = true;
