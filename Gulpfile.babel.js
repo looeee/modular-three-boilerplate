@@ -32,7 +32,7 @@ gulp.task('bundle', () => {
     plugins: [
       nodeResolve({
         jsnext: true,
-        module: false,
+        module: true,
       }),
       glsl(),
       babel({
