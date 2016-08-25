@@ -1,4 +1,5 @@
 import * as modularTHREE from 'modular-three';
+// import * as modularTHREE from 'modular-three/src/index.js';
 
 import {
   TestDrawing,

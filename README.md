@@ -1,12 +1,14 @@
 Modular Three Boilerplate
 ========
 
-### ES2015 THREE.js boilerplate code designed for use with Modular THREE ([npm](https://www.npmjs.com/package/modular-three), [github](https://github.com/looeee/modular-three)). ###
+### ES2015 THREE.js boilerplate code designed for use with ModularTHREE ([npm](https://www.npmjs.com/package/modular-three), [github](https://github.com/looeee/modular-three)). ###
 
 Includes a Gulpfile which:
-* Compiles ES2015 to ES5 with [Rollup](http://rollupjs.org/), [Browserify](http://browserify.org/) and [Babel](https://babeljs.io/).
+* Compiles ES2015 to ES5 with [Rollup](http://rollupjs.org/) and [Babel](https://babeljs.io/).
 * Compiles [SCSS](http://sass-lang.com/) and applies [Autoprefixer](https://github.com/postcss/autoprefixer) to your CSS.
 * Runs [Livereload](http://livereload.com/).
+
+Detailed instructions on using ModularTHREE are [**here**](https://www.npmjs.com/package/modular-three).
 
 Requirements
 ------
@@ -32,12 +34,16 @@ Then install the required NPM modules
 npm install
 ```
 
-View index.html in your browser - it should show a red cube on a black background if everything is working.
+View index.html in your browser - it should show a falling wooden cube if everything is working.
 
-Run the default Gulp task to watch for changes to code in the src and scss folders.
+Run the default **Gulp** task to watch for changes to code in the src and scss folders and start the Livereload server:
 
-This boilerplate includes a simple drawing setup to use [GSAP](http://greensock.com/gsap) for animation and show stats using [stats.js](https://github.com/mrdoob/stats.js/).
+```bash
+gulp default
+```
 
-For more detailed instructions on how to create and use drawings, see the [Modular THREE](https://www.npmjs.com/package/modular-three) readme.
+This boilerplate includes a simple ```Drawing``` setup to use [**GSAP**](http://greensock.com/gsap) for animation and show stats using [**stats.js**](https://github.com/mrdoob/stats.js/).
+
+For more detailed instructions on how to create and use ```Drawings```, see the [ModularTHREE](https://www.npmjs.com/package/modular-three) readme.
 
 #### License MIT © Lewy Blue 2016 ####
