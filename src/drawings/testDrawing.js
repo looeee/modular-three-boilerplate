@@ -1,9 +1,7 @@
+import 'gsap';
+import * as THREE from 'three/src/Three.js';
 import * as modularTHREE from 'modular-three';
-// import * as modularTHREE from 'modular-three/src/index.js';
-
-import {
-  Cube,
-} from '../meshObjects/cube';
+import { Cube } from '../meshObjects/cube';
 
 // The following spec objects are optional and can be omitted
 //for the defaults shown
@@ -55,14 +53,14 @@ export class TestDrawing extends modularTHREE.Drawing {
   }
 
   initAnimations() {
-    const cubeTimeline = new TimelineMax();
+    const cubeTimeline = new TimelineLite();
 
-    const cubeFallTween = TweenMax.to(this.cube.position, 3.5, {
+    const cubeFallTween = TweenLite.to(this.cube.position, 3.5, {
       y: -20,
       ease: Bounce.easeOut,
     });
 
-    const cubeRotateTween = TweenMax.to(this.cube.rotation, 3.5, {
+    const cubeRotateTween = TweenLite.to(this.cube.rotation, 2.5, {
       x: 0,
       y: 0,
       ease: Sine.easeInOut,

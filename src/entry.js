@@ -1,12 +1,8 @@
-import * as modularTHREE from 'modular-three';
-// import * as modularTHREE from 'modular-three/src/index.js';
+import './setupGlobals.js';
 
-import {
-  TestDrawing,
-}
-from './drawings/TestDrawing.js';
+import { TestDrawing } from './drawings/TestDrawing';
 
-modularTHREE.config.showStats = true;
+modularTHREE.config.showStats = false;
 modularTHREE.config.showHeartcodeLoader = true;
 
 modularTHREE.init();

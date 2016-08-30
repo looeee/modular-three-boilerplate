@@ -1,6 +1,5 @@
+import * as THREE from 'three/src/Three.js';
 import * as modularTHREE from 'modular-three';
-// import * as modularTHREE from 'modular-three/src/index.js';
-
 export class Cube extends modularTHREE.MeshObject {
   constructor() {
     super();

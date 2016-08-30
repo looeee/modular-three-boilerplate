@@ -1,22 +1,22 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
 const watch = require('gulp-watch');
-const autoprefixer = require('gulp-autoprefixer');
 const gutil = require('gulp-util');
 const livereload = require('gulp-livereload');
-// const rollup = require('gulp-rollup');
+
 const rollup = require('rollup').rollup;
 const babel = require('rollup-plugin-babel');
-// const babel = require('gulp-babel');
-// const babel = require('babel-core');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const filesize = require('rollup-plugin-filesize');
+const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
+const inject = require('rollup-plugin-inject');
 
-// const uglify = require('gulp-uglify');
-// const minify = require('gulp-minify');
+//Alternate build method: see notes below
+// const babel = require("babel-core").transform;
+// const fs = require('fs');
 
-const rename = require('gulp-rename');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
 
 //Compile glsl code
 const glsl = () => {
@@ -38,59 +38,67 @@ gulp.task('bundle', () => {
   return rollup({
     entry: './src/entry.js',
     plugins: [
+      // inject({
+      //   exclude: 'node_modules/**',
+      //   THREE: 'three',
+      // }),
       nodeResolve({
-        jsnext: true,
+        jsnext: false,
         module: true,
+        browser: true,
+      }),
+      commonjs({
+        exclude:
+        [
+          'node_modules/modular-three/**',
+        ],
+        namedExports: {
+          // left-hand side can be an absolute path, a path
+          // relative to the current directory, or the name
+          // of a module in node_modules
+          // 'three/examples/js/libs/stats.min': ['Stats'],
+        },
       }),
       glsl(),
       babel({
+        compact: false,
         exclude: 'node_modules/**',
         babelrc: false,
         presets: ['es2015-loose-rollup'],
       }),
       gutil.log('Pre and post-uglify filesizes:'),
       filesize(),
-      uglify(),
-      filesize(),
+      // uglify(),
+      // filesize(),
     ],
   })
     .then((bundle) => {
+      //
+      //Alternate build method:
+      //If modules in ES2015 format (not compiled with Babel/Buble)
+      //are included, then babel needs to run AFTER rollup
+      //Switch babel variable at the to of the file, include 'fs',
+      //uncomment the following code
+      // const result = bundle.generate({
+      //   format: 'es',
+      // }).code;
+      // const compiled = babel(result, {
+      //   compact: false,
+      //   presets: ['es2015'],
+      // }).code;
+      // fs.writeFile('scripts/main.js', compiled);
+      //
+      //And comment out this
       return bundle.write({
         format: 'iife',
+        moduleName: 'modularThreeBoilerpate',
         dest: 'scripts/main.js',
       });
+      //
     });
 });
 
-// gulp.task('bundle', () => {
-//   return gulp.src('src/entry.js')
-//         .pipe(rollup({
-//           allowRealFiles: true,
-//           entry: './src/entry.js',
-//           plugins: [
-//             nodeResolve({
-//               jsnext: false,
-//               //module: false,
-//               //main: false,
-//             }),
-//             glsl(),
-//             filesize(),
-//           ],
-//         }))
-//         .pipe(babel({
-//           //compact: false,
-//           ignore: 'node_modules/**',
-//           babelrc: false,
-//           presets: ['es2015'],
-//         }))
-//         .pipe(uglify())
-//         .on('error', gutil.log)
-//         .pipe(rename('main.js'))
-//         //.pipe(sourcemaps.write('.'))
-//         .pipe(gulp.dest('scripts/'));
-// });
-
-//Compile SCSS to CSS
+//Compile SCSS to CSS and apply autoprefixer
 gulp.task('sass', () => {
   return gulp.src('scss/**/*.scss')
     .pipe(sass())
@@ -110,7 +118,8 @@ gulp.task('reload', () => {
   .pipe(livereload());
 });
 
-// //default task
+//Note: this will rebuild js when gulp is first run.
+//Remove 'bundle' to prevent this and just watch for changes
 gulp.task('default', ['bundle'], () => {
   livereload.listen();
   gulp.watch('scss/**/*.scss', ['sass']);
