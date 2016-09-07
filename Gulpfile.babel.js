@@ -11,12 +11,15 @@ const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
 const inject = require('rollup-plugin-inject');
 
-//Alternate build method: see notes below
-// const babel = require("babel-core").transform;
-// const fs = require('fs');
-
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
+
+const outro = `
+Object.defineProperty( exports, 'AudioContext', {
+	get: function () {
+		return exports.getAudioContext();
+	}
+});`;
 
 //Compile glsl code
 const glsl = () => {
@@ -39,8 +42,12 @@ gulp.task('bundle', () => {
     entry: './src/entry.js',
     plugins: [
       // inject({
-      //   exclude: 'node_modules/**',
-      //   THREE: 'three',
+      //   include: [
+      //     'node_modules/modular-three/dist/**',
+      //     'src/**',
+      //   ],
+      //   THREE: 'three/src/THREE',
+      //   modularTHREE: 'modular-three',
       // }),
       nodeResolve({
         jsnext: false,
@@ -52,12 +59,6 @@ gulp.task('bundle', () => {
         [
           'node_modules/modular-three/**',
         ],
-        namedExports: {
-          // left-hand side can be an absolute path, a path
-          // relative to the current directory, or the name
-          // of a module in node_modules
-          // 'three/examples/js/libs/stats.min': ['Stats'],
-        },
       }),
       glsl(),
       babel({
@@ -71,27 +72,15 @@ gulp.task('bundle', () => {
       // uglify(),
       // filesize(),
     ],
+    outro,
   })
     .then((bundle) => {
-      //
-      //Alternate build method:
-      //If modules in ES2015 format (not compiled with Babel/Buble)
-      //are included, then babel needs to run AFTER rollup
-      //Switch babel variable at the to of the file, include 'fs',
-      //uncomment the following code
-      // const result = bundle.generate({
-      //   format: 'es',
-      // }).code;
-      // const compiled = babel(result, {
-      //   compact: false,
-      //   presets: ['es2015'],
-      // }).code;
-      // fs.writeFile('scripts/main.js', compiled);
-      //
-      //And comment out this
       return bundle.write({
         format: 'iife',
-        moduleName: 'modularThreeBoilerpate',
+        // moduleName: 'modularThreeBoilerpate',
+        // globals: {
+        //   THREE: 'three',
+        // },
         dest: 'scripts/main.js',
       });
       //
@@ -124,6 +113,6 @@ gulp.task('default', ['bundle'], () => {
   livereload.listen();
   gulp.watch('scss/**/*.scss', ['sass']);
   gulp.watch('src/**/*.js', ['bundle']);
-  gulp.watch('scripts/vendor/**/*.js', ['reload']);
+  gulp.watch('scripts/**/*.js', ['reload']);
   gulp.watch('./index.html', ['reload']);
 });

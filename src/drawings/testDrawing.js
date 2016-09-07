@@ -1,6 +1,3 @@
-import 'gsap';
-import * as THREE from 'three/src/Three.js';
-import * as modularTHREE from 'modular-three';
 import { Cube } from '../meshObjects/cube';
 
 // The following spec objects are optional and can be omitted
@@ -17,6 +14,7 @@ const rendererSpec = {
   pixelRatio: window.devicePixelRatio,
   postprocessing: false,
   useGSAP: true,
+  showStats: true,
 };
 
 // Optional
