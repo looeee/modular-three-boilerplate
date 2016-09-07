@@ -1,5 +1,5 @@
 //import setupGlobals for side effects
-import './setupGlobals.js';
+// import './setupGlobals.js';
 
 import { TestDrawing } from './drawings/TestDrawing';
 import { initHeartcodeLoader } from './loadingOverlay';

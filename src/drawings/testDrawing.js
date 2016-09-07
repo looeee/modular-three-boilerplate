@@ -12,7 +12,7 @@ const rendererSpec = {
   width: () => window.innerWidth,
   height: () => window.innerHeight,
   pixelRatio: window.devicePixelRatio,
-  postprocessing: false,
+  postprocessing: true,
   useGSAP: true,
   showStats: true,
 };
@@ -39,6 +39,7 @@ export class TestDrawing extends modularTHREE.Drawing {
   init() {
     this.initObjects();
     this.initAnimations();
+    this.initPostprocessing();
   }
 
   initObjects() {
@@ -67,5 +68,10 @@ export class TestDrawing extends modularTHREE.Drawing {
     cubeTimeline.add(cubeFallTween);
 
     cubeTimeline.add(cubeRotateTween, 0);
+  }
+
+  initPostprocessing() {
+    this.addPostEffect(THREE.KaleidoShader);
+    //this.addPostEffect(THREE.VignetteShader);
   }
 }

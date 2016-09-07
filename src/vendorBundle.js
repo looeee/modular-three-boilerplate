@@ -8,9 +8,13 @@ import {
   Mesh,
   Math as _Math,
   WebGLRenderer,
+  WebGLRenderTarget,
   Vector3,
   BoxBufferGeometry,
   MeshBasicMaterial,
+  ShaderMaterial,
+  UniformsUtils,
+  PlaneBufferGeometry,
 } from 'three/src/THREE';
 
 window.THREE = {
@@ -22,9 +26,13 @@ window.THREE = {
   Scene,
   Mesh,
   WebGLRenderer,
+  WebGLRenderTarget,
   Vector3,
   BoxBufferGeometry,
   MeshBasicMaterial,
+  ShaderMaterial,
+  UniformsUtils,
+  PlaneBufferGeometry,
 };
 
 window.THREE.Math = _Math;
@@ -37,13 +45,3 @@ window.modularTHREE = modularTHREE;
 
 import Stats from 'three/examples/js/libs/stats.min';
 window.Stats = Stats;
-
-// import 'three/examples/js/postprocessing/EffectComposer.js';
-
-// console.log(EffectComposer);
-// import 'three/examples/js/postprocessing/ShaderPass.js';
-
-// window.THREE.EffectComposer = EffectComposer;
-// window.THREE.ShaderPass = ShaderPass;
-
-// console.log(THREE.EffectComposer);

@@ -37,20 +37,12 @@ const glsl = () => {
   };
 };
 
-gulp.task('bundle', () => {
+gulp.task('vendorBundle', () => {
   return rollup({
-    entry: './src/entry.js',
+    entry: './src/vendorBundle.js',
     plugins: [
-      // inject({
-      //   include: [
-      //     'node_modules/modular-three/dist/**',
-      //     'src/**',
-      //   ],
-      //   THREE: 'three/src/THREE',
-      //   modularTHREE: 'modular-three',
-      // }),
       nodeResolve({
-        jsnext: false,
+        jsnext: true,
         module: true,
         browser: true,
       }),
@@ -69,6 +61,7 @@ gulp.task('bundle', () => {
       }),
       gutil.log('Pre and post-uglify filesizes:'),
       filesize(),
+      //Disabled for development
       // uglify(),
       // filesize(),
     ],
@@ -78,9 +71,40 @@ gulp.task('bundle', () => {
       return bundle.write({
         format: 'iife',
         // moduleName: 'modularThreeBoilerpate',
-        // globals: {
-        //   THREE: 'three',
-        // },
+        dest: 'scripts/vendorBundle.js',
+      });
+      //
+    });
+});
+
+
+gulp.task('bundle', () => {
+  return rollup({
+    entry: './src/entry.js',
+    plugins: [
+      nodeResolve({
+        jsnext: true,
+        module: true,
+        browser: true,
+      }),
+      commonjs(),
+      babel({
+        compact: false,
+        exclude: 'node_modules/**',
+        babelrc: false,
+        presets: ['es2015-loose-rollup'],
+      }),
+      gutil.log('Pre and post-uglify filesizes:'),
+      filesize(),
+      //Disabled for development
+      // uglify(),
+      // filesize(),
+    ],
+  })
+    .then((bundle) => {
+      return bundle.write({
+        format: 'iife',
+        // moduleName: 'modularThreeBoilerpate',
         dest: 'scripts/main.js',
       });
       //
@@ -113,6 +137,11 @@ gulp.task('default', ['bundle'], () => {
   livereload.listen();
   gulp.watch('scss/**/*.scss', ['sass']);
   gulp.watch('src/**/*.js', ['bundle']);
+  gulp.watch('src/**/vendorBundle.js', ['vendorBundle']);
+
+  //This is to aid development of modularTHREE module
+  gulp.watch('node_modules/modular-three/dist/index.js', ['vendorBundle']);
+
   gulp.watch('scripts/**/*.js', ['reload']);
   gulp.watch('./index.html', ['reload']);
 });
