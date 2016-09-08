@@ -9,7 +9,6 @@ const nodeResolve = require('rollup-plugin-node-resolve');
 const filesize = require('rollup-plugin-filesize');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
-const inject = require('rollup-plugin-inject');
 
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');

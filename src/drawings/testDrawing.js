@@ -7,12 +7,12 @@ const rendererSpec = {
   antialias: true,
   alpha: true, //true required for multiple scenes
   autoClear: true, //false required for multiple scenes
-  clearColor: 0x000000,
-  clearAlpha: 1,
+  clearColor: 0x6858bb,
+  clearAlpha: 1.0,
   width: () => window.innerWidth,
   height: () => window.innerHeight,
   pixelRatio: window.devicePixelRatio,
-  postprocessing: true,
+  postprocessing: false,
   useGSAP: true,
   showStats: true,
 };
@@ -71,7 +71,13 @@ export class TestDrawing extends modularTHREE.Drawing {
   }
 
   initPostprocessing() {
-    this.addPostEffect(THREE.KaleidoShader);
-    //this.addPostEffect(THREE.VignetteShader);
+    if (!this.rendererSpec.postprocessing) return;
+    this.addPostShader(THREE.KaleidoShader);
+    this.addPostShader(THREE.VignetteShader, {
+      offset: 0.5,
+      darkness: 10.0,
+    });
+
+    this.addPostEffect(new THREE.GlitchPass());
   }
 }

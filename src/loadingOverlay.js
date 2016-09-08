@@ -1,11 +1,9 @@
-// import 'gsap';
-
 let loadingOverlay;
 let loadingIcon;
 
 const checkHeartcodeLoaded = () => {
   if (typeof CanvasLoader === 'undefined') {
-    let msg = 'modularTHREE Error: HeartcodeLoader not loaded.\n';
+    let msg = 'Error: HeartcodeLoader not loaded.\n';
     msg += 'If you do not wish to use HeartcodeLoader set modularTHREE.config.useHeartcodeLoader = false\n';
     msg += 'Otherwise get https://raw.githubusercontent.com/heartcode/';
     msg += 'CanvasLoader/master/js/heartcode-canvasloader-min.js\n';

@@ -58,8 +58,8 @@ var rendererSpec = {
   antialias: true,
   alpha: true, //true required for multiple scenes
   autoClear: true, //false required for multiple scenes
-  clearColor: 0x000000,
-  clearAlpha: 1,
+  clearColor: 0x6858bb,
+  clearAlpha: 1.0,
   width: function () {
     return window.innerWidth;
   },
@@ -67,7 +67,7 @@ var rendererSpec = {
     return window.innerHeight;
   },
   pixelRatio: window.devicePixelRatio,
-  postprocessing: true,
+  postprocessing: false,
   useGSAP: true,
   showStats: true
 };
@@ -135,21 +135,25 @@ var TestDrawing = function (_modularTHREE$Drawing) {
   };
 
   TestDrawing.prototype.initPostprocessing = function initPostprocessing() {
-    this.addPostEffect(THREE.KaleidoShader);
-    //this.addPostEffect(THREE.VignetteShader);
+    if (!this.rendererSpec.postprocessing) return;
+    this.addPostShader(THREE.KaleidoShader);
+    this.addPostShader(THREE.VignetteShader, {
+      offset: 0.5,
+      darkness: 10.0
+    });
+
+    this.addPostEffect(new THREE.GlitchPass());
   };
 
   return TestDrawing;
 }(modularTHREE.Drawing);
-
-// import 'gsap';
 
 var loadingOverlay = void 0;
 var loadingIcon = void 0;
 
 var checkHeartcodeLoaded = function () {
   if (typeof CanvasLoader === 'undefined') {
-    var msg = 'modularTHREE Error: HeartcodeLoader not loaded.\n';
+    var msg = 'Error: HeartcodeLoader not loaded.\n';
     msg += 'If you do not wish to use HeartcodeLoader set modularTHREE.config.useHeartcodeLoader = false\n';
     msg += 'Otherwise get https://raw.githubusercontent.com/heartcode/';
     msg += 'CanvasLoader/master/js/heartcode-canvasloader-min.js\n';

@@ -10,6 +10,8 @@ Includes a Gulpfile which:
 
 Detailed instructions on using ModularTHREE are [**here**](https://www.npmjs.com/package/modular-three).
 
+### NOTE: ModularTHREE is at  avery early development stage. Features are changing rapidly and this readme may be out of date. You probably shouldn't use this yet.  ###
+
 Requirements
 ------
 
