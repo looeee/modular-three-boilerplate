@@ -44825,6 +44825,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(commo
 
 interopDefault(EasePack);
 
+var index = createCommonjsModule(function (module, exports) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.modularTHREE = factory());
+}(commonjsGlobal, (function () { 'use strict';
+
 // *****************************************************************************
 //  Texture Loader
 //  includes simple memoization to ensure
@@ -44851,6 +44858,24 @@ var classCallCheck = function (instance, Constructor) {
     throw new TypeError("Cannot call a class as a function");
   }
 };
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
 
 // *****************************************************************************
 // MESH OBJECT SUPERCLASS
@@ -44912,7 +44937,7 @@ function isObject(value) {
 }
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -45549,126 +45574,36 @@ var Renderer = function () {
 }();
 
 // *****************************************************************************
-//  CAMERA CLASS
-//
-//  Used by Scene class - each scene will have an associated camera class
+//  THREE JSON object format loader
+//  includes simple memoization to ensure
+//  THREE.ObjectLoader() and models are only loaded once
+//  NOTE: currently does not return a reference to the loaded model
 // *****************************************************************************
-var Camera = function () {
-  function Camera(spec) {
-    classCallCheck(this, Camera);
+var loader$1 = null;
 
-    this.spec = spec;
-    this.init();
+var models = {};
+
+var setupLoader = function () {
+  if (!loader$1) {
+    if (modularTHREE.config.useLoadingManager) {
+      loader$1 = new THREE.ObjectLoader(modularTHREE.loadingManager);
+    } else loader$1 = new THREE.ObjectLoader();
   }
+};
 
-  Camera.prototype.init = function init() {
-    if (this.spec.type === 'PerspectiveCamera') {
-      this.cam = new THREE.PerspectiveCamera();
-    } else {
-      this.cam = new THREE.OrthographicCamera();
-    }
-    this.set();
-  };
+function objectLoader(url, callback) {
+  setupLoader();
 
-  Camera.prototype.set = function set() {
-    if (this.spec.type === 'PerspectiveCamera') {
-      this.cam.fov = this.spec.fov;
-      this.cam.aspect = this.spec.aspect();
-    } else {
-      this.cam.left = -this.spec.width() / 2;
-      this.cam.right = this.spec.width() / 2;
-      this.cam.top = this.spec.height() / 2;
-      this.cam.bottom = -this.spec.height() / 2;
-    }
-    this.cam.position.copy(this.spec.position);
-    this.cam.near = this.spec.near;
-    this.cam.far = this.spec.far;
-    this.cam.updateProjectionMatrix();
-  };
-
-  Camera.prototype.enableLayer = function enableLayer(n) {
-    this.cam.layers.enable(n);
-  };
-
-  Camera.prototype.disableLayer = function disableLayer(n) {
-    this.cam.layers.disable(n);
-  };
-
-  Camera.prototype.toggleLayer = function toggleLayer(n) {
-    this.cam.layers.toggle(n);
-  };
-
-  return Camera;
-}();
-
-// *****************************************************************************
-//  SCENE CLASS
-//
-//  Used by DRAWING classes
-//
-// *****************************************************************************
-var Scene = function () {
-  function Scene(rendererSpec, cameraSpec) {
-    classCallCheck(this, Scene);
-
-    this.rendererSpec = rendererSpec;
-    this.cameraSpec = cameraSpec;
-    this.init();
+  if (!models[url]) {
+    loader$1.load(url, function (loadedObject) {
+      //models[url] = getMesh(loadedObject);
+      models[url] = loadedObject;
+      callback(models[url]);
+    });
+  } else {
+    callback(models[url]);
   }
-
-  Scene.prototype.init = function init() {
-    this.scene = new THREE.Scene();
-    this.camera = new Camera(this.cameraSpec);
-    this.scene.add(this.camera.cam);
-
-    this.renderer = new Renderer(this.rendererSpec, this.scene, this.camera.cam);
-  };
-
-  Scene.prototype.add = function add() {
-    for (var _len = arguments.length, objects = Array(_len), _key = 0; _key < _len; _key++) {
-      objects[_key] = arguments[_key];
-    }
-
-    for (var _iterator = objects, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-      var _ref;
-
-      if (_isArray) {
-        if (_i >= _iterator.length) break;
-        _ref = _iterator[_i++];
-      } else {
-        _i = _iterator.next();
-        if (_i.done) break;
-        _ref = _i.value;
-      }
-
-      var object = _ref;
-
-      this.scene.add(object);
-    }
-  };
-
-  Scene.prototype.reset = function reset() {
-    this.clearScene();
-    this.camera.set();
-    this.renderer.setSize();
-  };
-
-  Scene.prototype.clearScene = function clearScene() {
-    for (var i = this.scene.children.length - 1; i >= 0; i--) {
-      this.scene.remove(this.scene.children[i]);
-    }
-  };
-
-  Scene.prototype.cancelRender = function cancelRender() {
-    this.renderer.cancelRender();
-  };
-
-  Scene.prototype.render = function render(perFrameFunctions) {
-    this.renderer.render(perFrameFunctions);
-  };
-
-  return Scene;
-}();
+}
 
 //hold a reference to all drawings so that they can be reset easily
 var drawings = {};
@@ -45697,13 +45632,14 @@ var Drawing = function () {
     this.initRendererSpec();
     this.initCameraSpec();
 
-    this.scene = new Scene(this.rendererSpec, this.cameraSpec);
-    this.camera = this.scene.camera;
-
     this.uuid = THREE.Math.generateUUID();
     drawings[this.uuid] = this;
 
     this.perFrameFunctions = [];
+
+    this.initCamera();
+    this.initScene();
+    this.initRenderer();
 
     this.init();
   }
@@ -45747,28 +45683,96 @@ var Drawing = function () {
     }
   };
 
+  Drawing.prototype.initScene = function initScene() {
+    this.scene = new THREE.Scene();
+
+    this.scene.add(this.camera);
+  };
+
+  Drawing.prototype.initRenderer = function initRenderer() {
+    this.renderer = new Renderer(this.rendererSpec, this.scene, this.camera);
+    this.domElement = this.renderer.renderer.domElement;
+  };
+
+  Drawing.prototype.initCamera = function initCamera() {
+    if (!this.camera) {
+      if (this.cameraSpec.type === 'PerspectiveCamera') {
+        this.camera = new THREE.PerspectiveCamera();
+      } else {
+        this.camera = new THREE.OrthographicCamera();
+      }
+    }
+
+    if (this.cameraSpec.type === 'PerspectiveCamera') {
+      this.camera.fov = this.cameraSpec.fov;
+      this.camera.aspect = this.cameraSpec.aspect();
+    } else {
+      this.camera.left = -this.cameraSpec.width() / 2;
+      this.camera.right = this.cameraSpec.width() / 2;
+      this.camera.top = this.cameraSpec.height() / 2;
+      this.camera.bottom = -this.cameraSpec.height() / 2;
+    }
+    this.camera.position.copy(this.cameraSpec.position);
+    this.camera.near = this.cameraSpec.near;
+    this.camera.far = this.cameraSpec.far;
+    this.camera.updateProjectionMatrix();
+  };
+
+  Drawing.prototype.add = function add() {
+    for (var _len = arguments.length, objects = Array(_len), _key = 0; _key < _len; _key++) {
+      objects[_key] = arguments[_key];
+    }
+
+    for (var _iterator = objects, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var object = _ref;
+
+      this.scene.add(object);
+    }
+  };
+
   //gets called on window resize or other events that require recalculation of
   //object dimensions
 
 
   Drawing.prototype.reset = function reset() {
-    this.scene.reset();
+    this.clearScene();
+    this.initCamera();
+    this.renderer.setSize();
     this.init();
   };
 
-  Drawing.prototype.render = function render() {
-    this.scene.render(this.perFrameFunctions);
+  Drawing.prototype.clearScene = function clearScene() {
+    for (var i = this.scene.children.length - 1; i >= 0; i--) {
+      this.scene.remove(this.scene.children[i]);
+    }
   };
 
   Drawing.prototype.cancelRender = function cancelRender() {
-    this.scene.renderer.cancelRender();
+    this.renderer.cancelRender();
+  };
+
+  Drawing.prototype.render = function render() {
+    this.renderer.render(this.perFrameFunctions);
   };
 
   Drawing.prototype.addPostShader = function addPostShader(shader, uniforms, renderToScreen) {
+    if (!this.rendererSpec.postprocessing) return;
     this.scene.renderer.postRenderer.addShader(shader, uniforms, renderToScreen);
   };
 
   Drawing.prototype.addPostEffect = function addPostEffect(effect, renderToScreen) {
+    if (!this.rendererSpec.postprocessing) return;
     this.scene.renderer.postRenderer.addEffect(effect, renderToScreen);
   };
 
@@ -45780,6 +45784,49 @@ var Drawing = function () {
     }
   };
 
+  Drawing.prototype.loadObject = function loadObject(url, callback) {
+    var _this = this;
+
+    if (callback === undefined) {
+      callback = function (object) {
+        return _this.add(object);
+      };
+    }
+    return objectLoader(url, callback);
+  };
+
+  Drawing.prototype.initClock = function initClock() {
+    if (!this.clock) this.clock = new THREE.Clock();
+  };
+
+  Drawing.prototype.initMixer = function initMixer() {
+    var _this2 = this;
+
+    this.mixer = new THREE.AnimationMixer(this.scene);
+
+    this.initClock();
+
+    if (this.rendererSpec.useGSAP === false) {
+      this.addPerFrameFunction(function () {
+        return _this2.mixer.update(_this2.clock.getDelta());
+      });
+    } else {
+      TweenLite.ticker.addEventListener('tick', function () {
+        return _this2.mixer.update(_this2.clock.getDelta());
+      });
+    }
+  };
+
+  createClass(Drawing, [{
+    key: 'animationMixer',
+    get: function () {
+      if (!this.mixer) {
+        this.initMixer();
+      }
+
+      return this.mixer;
+    }
+  }]);
   return Drawing;
 }();
 
@@ -45795,6 +45842,13 @@ var modularTHREE = {
   config: config,
   loadingManager: null
 };
+
+return modularTHREE;
+
+})));
+});
+
+var modularTHREE = interopDefault(index);
 
 var stats_min = createCommonjsModule(function (module) {
 // stats.js - http://github.com/mrdoob/stats.js

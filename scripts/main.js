@@ -101,48 +101,54 @@ var TestDrawing = function (_modularTHREE$Drawing) {
   }
 
   TestDrawing.prototype.init = function init() {
-    this.initObjects();
-    this.initAnimations();
+    this.initModels();
+    this.initLighting();
     this.initPostprocessing();
-  };
-
-  TestDrawing.prototype.initObjects = function initObjects() {
-    this.cube = new Cube();
-
-    this.cube.rotation.set(-2, 2, 0);
-    this.cube.position.set(0, 30, 0);
-
-    this.scene.add(this.cube);
-  };
-
-  TestDrawing.prototype.initAnimations = function initAnimations() {
-    var cubeTimeline = new TimelineLite();
-
-    var cubeFallTween = TweenLite.to(this.cube.position, 3.5, {
-      y: -20,
-      ease: Bounce.easeOut
-    });
-
-    var cubeRotateTween = TweenLite.to(this.cube.rotation, 2.5, {
-      x: 0,
-      y: 0,
-      ease: Sine.easeInOut
-    });
-
-    cubeTimeline.add(cubeFallTween);
-
-    cubeTimeline.add(cubeRotateTween, 0);
+    this.initControls();
   };
 
   TestDrawing.prototype.initPostprocessing = function initPostprocessing() {
-    if (!this.rendererSpec.postprocessing) return;
-    this.addPostShader(THREE.KaleidoShader);
+    // this.addPostShader(THREE.KaleidoShader);
     this.addPostShader(THREE.VignetteShader, {
       offset: 0.5,
-      darkness: 10.0
+      darkness: 7.0
     });
 
     this.addPostEffect(new THREE.GlitchPass());
+  };
+
+  TestDrawing.prototype.initModels = function initModels() {
+    var _this2 = this;
+
+    var callback = function (object) {
+      object.scale.set(15, 15, 15);
+      object.position.set(30, -5, 0);
+      _this2.scene.add(object);
+      _this2.cube = object;
+      _this2.cubeAnimation();
+    };
+    this.loadObject('models/crate/crate.json', callback);
+  };
+
+  TestDrawing.prototype.initLighting = function initLighting() {
+    var ambient = new THREE.AmbientLight(0xffffff);
+    this.add(ambient);
+  };
+
+  TestDrawing.prototype.initControls = function initControls() {
+    var _this3 = this;
+
+    this.controls = new THREE.OrbitControls(this.camera, this.domElement);
+
+    this.controls.enableDamping = true;
+    this.addPerFrameFunction(function () {
+      _this3.controls.update();
+    });
+  };
+
+  TestDrawing.prototype.cubeAnimation = function cubeAnimation() {
+    var cubeAnimationClip = this.cube.animations[0];
+    this.animationMixer.clipAction(cubeAnimationClip).play();
   };
 
   return TestDrawing;

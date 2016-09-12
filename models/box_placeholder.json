@@ -1,0 +1,84 @@
+{
+    "defaults": {
+        "bgcolor": 0,
+        "camera": "",
+        "fog": ""
+    },
+    "embeds": {
+        "Embed_41_Box001": {
+            "colors": [],
+            "faces": [42, 0, 2, 3, 0, 0, 2, 3, 0, 0, 0, 42, 3, 1, 0, 0, 3, 1, 0, 0, 0, 0, 42, 4, 5, 7, 0, 1, 0, 2, 1, 1, 1, 42, 7, 6, 4, 0, 2, 3, 1, 1, 1, 1, 42, 1, 3, 7, 0, 1, 0, 2, 2, 2, 2, 42, 7, 5, 1, 0, 2, 3, 1, 2, 2, 2, 42, 3, 2, 6, 0, 1, 0, 2, 3, 3, 3, 42, 6, 7, 3, 0, 2, 3, 1, 3, 3, 3, 42, 2, 0, 4, 0, 1, 0, 2, 4, 4, 4, 42, 4, 6, 2, 0, 2, 3, 1, 4, 4, 4],
+            "materials": [],
+            "metadata": {
+                "colors": 0,
+                "faces": 10,
+                "normals": 5,
+                "uvs": ["4"],
+                "vertices": 8
+            },
+            "normals": [0.0, 0.0, -1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, -1.0, 0.0, 0.0],
+            "scale": 1,
+            "uvs": [
+                [1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0]
+            ],
+            "vertices": [-4.13385820388794, -4.13385820388794, 0.0, 4.13385820388794, -4.13385820388794, 0.0, -4.13385820388794, 4.13385820388794, 0.0, 4.13385820388794, 4.13385820388794, 0.0, -4.13385820388794, -4.13385820388794, 11.6929130554199, 4.13385820388794, -4.13385820388794, 11.6929130554199, -4.13385820388794, 4.13385820388794, 11.6929130554199, 4.13385820388794, 4.13385820388794, 11.6929130554199]
+        }
+    },
+    "geometries": {
+        "Geometry_41_Box001": {
+            "id": "Embed_41_Box001",
+            "type": "embedded"
+        }
+    },
+    "materials": {
+        "Material #25": {
+            "parameters": {
+                "ambient": 9803157,
+                "color": 9803157,
+                "emissive": 0,
+                "map": "Texture_43_paper1",
+                "opacity": 1.0,
+                "reflectivity": 1,
+                "transparent": false,
+                "wireframe": false,
+                "wireframeLinewidth": 1
+            },
+            "type": "MeshBasicMaterial"
+        }
+    },
+    "metadata": {
+        "formatVersion": 3.2,
+        "generatedBy": "convert-to-threejs.py",
+        "geometries": 1,
+        "materials": 1,
+        "objects": 1,
+        "textures": 1,
+        "type": "object"
+    },
+    "objects": {
+        "Box001": {
+            "geometry": "Geometry_41_Box001",
+            "material": "Material #25",
+            "position": [0.0, 0.0, 0.0],
+            "quaternion": [-0.7071067811865475, -0.0, 0.0, 0.7071067811865476],
+            "scale": [1.0, 1.0, 1.0],
+            "visible": true
+        }
+    },
+    "textures": {
+        "Texture_43_paper1": {
+            "anisotropy": true,
+            "fullpath": "F:\\Media\\Web\\lightbox-modular\\3dStudio\\box_placeholder.fbm/paper1.jpg",
+            "magFilter": "LinearFilter",
+            "minFilter": "LinearMipMapLinearFilter",
+            "offset": [0.0, 0.0],
+            "repeat": [1, 1],
+            "url": "paper1.jpg"
+        }
+    },
+    "transform": {
+        "position": [0, 0, 0],
+        "rotation": [0, 0, 0],
+        "scale": [1, 1, 1]
+    }
+}

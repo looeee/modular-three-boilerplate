@@ -37,47 +37,49 @@ export class TestDrawing extends modularTHREE.Drawing {
   }
 
   init() {
-    this.initObjects();
-    this.initAnimations();
+    this.initModels();
+    this.initLighting();
     this.initPostprocessing();
-  }
-
-  initObjects() {
-    this.cube = new Cube();
-
-    this.cube.rotation.set(-2, 2, 0);
-    this.cube.position.set(0, 30, 0);
-
-    this.scene.add(this.cube);
-  }
-
-  initAnimations() {
-    const cubeTimeline = new TimelineLite();
-
-    const cubeFallTween = TweenLite.to(this.cube.position, 3.5, {
-      y: -20,
-      ease: Bounce.easeOut,
-    });
-
-    const cubeRotateTween = TweenLite.to(this.cube.rotation, 2.5, {
-      x: 0,
-      y: 0,
-      ease: Sine.easeInOut,
-    });
-
-    cubeTimeline.add(cubeFallTween);
-
-    cubeTimeline.add(cubeRotateTween, 0);
+    this.initControls();
   }
 
   initPostprocessing() {
-    if (!this.rendererSpec.postprocessing) return;
-    this.addPostShader(THREE.KaleidoShader);
+    // this.addPostShader(THREE.KaleidoShader);
     this.addPostShader(THREE.VignetteShader, {
       offset: 0.5,
-      darkness: 10.0,
+      darkness: 7.0,
     });
 
     this.addPostEffect(new THREE.GlitchPass());
+  }
+
+  initModels() {
+    const callback = (object) => {
+      object.scale.set(15, 15, 15);
+      object.position.set(30, -5, 0);
+      this.scene.add(object);
+      this.cube = object;
+      this.cubeAnimation();
+    };
+    this.loadObject('models/crate/crate.json', callback);
+  }
+
+  initLighting() {
+    const ambient = new THREE.AmbientLight(0xffffff);
+    this.add(ambient);
+  }
+
+  initControls() {
+    this.controls = new THREE.OrbitControls(this.camera, this.domElement);
+
+    this.controls.enableDamping = true;
+    this.addPerFrameFunction(() => {
+      this.controls.update();
+    });
+  }
+
+  cubeAnimation() {
+    const cubeAnimationClip = this.cube.animations[0];
+    this.animationMixer.clipAction(cubeAnimationClip).play();
   }
 }

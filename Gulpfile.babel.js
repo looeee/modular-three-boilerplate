@@ -13,28 +13,31 @@ const uglify = require('rollup-plugin-uglify');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 
-const outro = `
-Object.defineProperty( exports, 'AudioContext', {
-	get: function () {
-		return exports.getAudioContext();
-	}
-});`;
-
-//Compile glsl code
-const glsl = () => {
-  return {
-    transform(code, id) {
-      if (!/\.glsl$/.test(id)) return;
-
-      return 'export default ' + JSON.stringify(
-        code
-        .replace(/[ \t]*\/\/.*\n/g, '')
-        .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
-        .replace(/\n{2,}/g, '\n')
-      ) + ';';
-    },
-  };
-};
+// *****************************************************************************
+// // These are required if you are building THREE from source
+// const outro = `
+// Object.defineProperty( exports, 'AudioContext', {
+// 	get: function () {
+// 		return exports.getAudioContext();
+// 	}
+// });`;
+//
+// //Compile glsl code
+// const glsl = () => {
+//   return {
+//     transform(code, id) {
+//       if (!/\.glsl$/.test(id)) return;
+//
+//       return 'export default ' + JSON.stringify(
+//         code
+//         .replace(/[ \t]*\/\/.*\n/g, '')
+//         .replace(/[ \t]*\/\*[\s\S]*?\*\//g, '')
+//         .replace(/\n{2,}/g, '\n')
+//       ) + ';';
+//     },
+//   };
+// };
+// *****************************************************************************
 
 gulp.task('vendorBundle', () => {
   return rollup({
@@ -45,13 +48,10 @@ gulp.task('vendorBundle', () => {
         module: true,
         browser: true,
       }),
-      commonjs({
-        exclude:
-        [
-          'node_modules/modular-three/**',
-        ],
-      }),
-      glsl(),
+      commonjs(),
+
+      //required if building THREE from source
+      // glsl(),
       babel({
         compact: false,
         exclude: 'node_modules/**',
@@ -64,7 +64,9 @@ gulp.task('vendorBundle', () => {
       // uglify(),
       // filesize(),
     ],
-    outro,
+
+    //required if building THREE from source
+    // outro,
   })
     .then((bundle) => {
       return bundle.write({
@@ -103,7 +105,6 @@ gulp.task('bundle', () => {
     .then((bundle) => {
       return bundle.write({
         format: 'iife',
-        // moduleName: 'modularThreeBoilerpate',
         dest: 'scripts/main.js',
       });
       //
@@ -139,6 +140,7 @@ gulp.task('default', ['bundle'], () => {
   gulp.watch('src/**/vendorBundle.js', ['vendorBundle']);
 
   //This is to aid development of modularTHREE module
+  //watch for changes to the module and update vendorBundle
   gulp.watch('node_modules/modular-three/dist/index.js', ['vendorBundle']);
 
   gulp.watch('scripts/**/*.js', ['reload']);
