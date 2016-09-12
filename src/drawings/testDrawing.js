@@ -54,14 +54,14 @@ export class TestDrawing extends modularTHREE.Drawing {
   }
 
   initModels() {
-    const callback = (object) => {
+    this.loadObject('models/crate/crate.json')
+    .then((object) => {
       object.scale.set(15, 15, 15);
       object.position.set(30, -5, 0);
       this.scene.add(object);
       this.cube = object;
       this.cubeAnimation();
-    };
-    this.loadObject('models/crate/crate.json', callback);
+    });
   }
 
   initLighting() {

@@ -120,14 +120,13 @@ var TestDrawing = function (_modularTHREE$Drawing) {
   TestDrawing.prototype.initModels = function initModels() {
     var _this2 = this;
 
-    var callback = function (object) {
+    this.loadObject('models/crate/crate.json').then(function (object) {
       object.scale.set(15, 15, 15);
       object.position.set(30, -5, 0);
       _this2.scene.add(object);
       _this2.cube = object;
       _this2.cubeAnimation();
-    };
-    this.loadObject('models/crate/crate.json', callback);
+    });
   };
 
   TestDrawing.prototype.initLighting = function initLighting() {

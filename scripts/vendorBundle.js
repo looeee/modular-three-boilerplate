@@ -45591,19 +45591,37 @@ var setupLoader = function () {
   }
 };
 
-function objectLoader(url, callback) {
+var promiseLoader = function (url) {
+  return new Promise(function (resolve, reject) {
+    if (!models[url]) loader$1.load(url, resolve);else resolve(models[url]);
+  });
+};
+
+function objectLoader(url) {
   setupLoader();
 
-  if (!models[url]) {
-    loader$1.load(url, function (loadedObject) {
-      //models[url] = getMesh(loadedObject);
-      models[url] = loadedObject;
-      callback(models[url]);
-    });
-  } else {
-    callback(models[url]);
-  }
+  return promiseLoader(url).then(function (object) {
+    if (!models[url]) models[url] = object;
+    return object;
+  });
 }
+
+// The exporter currently exports a scene object rather than just a single
+// mesh; traverse the loadedObject and find this mesh
+// const getMesh = (loadedObject) => {
+//   let mesh;
+//   loadedObject.traverse((object) => {
+//     if (object instanceof THREE.Mesh) {
+//       mesh = object;
+//       mesh.animations = loadedObject.animations;
+//     }
+//   });
+//
+//   if (mesh === undefined) {
+//     console.warn(`${url} does not contain a THREE.Mesh.`);
+//   }
+//   return mesh;
+// };
 
 //hold a reference to all drawings so that they can be reset easily
 var drawings = {};
