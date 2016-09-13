@@ -2,8 +2,8 @@ import THREE from 'three';
 window.THREE = THREE;
 
 //ALTERNATELY: Import just what you need from THREE
-//For simple scenes this can result in a saving (uncompressed)
-//of ~200kb 
+//For simple scenes this can result in a saving (un-minified)
+//of ~200kb
 // import {
 //   LoadingManager,
 //   ObjectLoader,
@@ -53,3 +53,6 @@ window.modularTHREE = modularTHREE;
 
 import Stats from 'three/examples/js/libs/stats.min';
 window.Stats = Stats;
+
+import dat from 'dat-gui';
+window.dat = dat;

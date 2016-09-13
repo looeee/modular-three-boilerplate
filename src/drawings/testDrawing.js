@@ -55,13 +55,14 @@ export class TestDrawing extends modularTHREE.Drawing {
 
   initModels() {
     this.loadObject('models/crate/crate.json')
-    .then((object) => {
-      object.scale.set(15, 15, 15);
-      object.position.set(30, -5, 0);
-      this.scene.add(object);
-      this.cube = object;
-      this.cubeAnimation();
-    });
+      .then((object) => {
+        object.scale.set(15, 15, 15);
+        object.position.set(30, -5, 0);
+        this.scene.add(object);
+        this.cube = object;
+        this.initCubeAnimation();
+        this.initCubeGUI();
+      });
   }
 
   initLighting() {
@@ -78,8 +79,26 @@ export class TestDrawing extends modularTHREE.Drawing {
     });
   }
 
-  cubeAnimation() {
-    const cubeAnimationClip = this.cube.animations[0];
-    this.animationMixer.clipAction(cubeAnimationClip).play();
+  initCubeAnimation() {
+    this.cubeAnimationClip = this.cube.animations[0];
+    this.animationMixer.clipAction(this.cubeAnimationClip);
+  }
+
+  initCubeGUI() {
+    if (this.gui) return;
+
+    this.gui = new dat.GUI();
+
+    const opts = {
+      'play': () => {
+        this.animationMixer.clipAction(this.cubeAnimationClip).play();
+      },
+      'stop': () => {
+        this.animationMixer.clipAction(this.cubeAnimationClip).stop();
+      },
+    };
+
+    this.gui.add(opts, 'play');
+    this.gui.add(opts, 'stop');
   }
 }

@@ -40,7 +40,10 @@ var Cube = function (_modularTHREE$MeshObj) {
   }
 
   Cube.prototype.init = function init() {
-    var texture = this.loadTexture('images/textures/crate.jpg');
+    var texture = void 0;
+    this.loadTexture('images/textures/crate.jpg').then(function (tex) {
+      texture = tex;
+    });
     var geometry = new THREE.BoxBufferGeometry(20, 20, 20);
     var material = new THREE.MeshBasicMaterial({
       map: texture
@@ -125,7 +128,8 @@ var TestDrawing = function (_modularTHREE$Drawing) {
       object.position.set(30, -5, 0);
       _this2.scene.add(object);
       _this2.cube = object;
-      _this2.cubeAnimation();
+      _this2.initCubeAnimation();
+      _this2.initCubeGUI();
     });
   };
 
@@ -145,9 +149,29 @@ var TestDrawing = function (_modularTHREE$Drawing) {
     });
   };
 
-  TestDrawing.prototype.cubeAnimation = function cubeAnimation() {
-    var cubeAnimationClip = this.cube.animations[0];
-    this.animationMixer.clipAction(cubeAnimationClip).play();
+  TestDrawing.prototype.initCubeAnimation = function initCubeAnimation() {
+    this.cubeAnimationClip = this.cube.animations[0];
+    this.animationMixer.clipAction(this.cubeAnimationClip);
+  };
+
+  TestDrawing.prototype.initCubeGUI = function initCubeGUI() {
+    var _this4 = this;
+
+    if (this.gui) return;
+
+    this.gui = new dat.GUI();
+
+    var opts = {
+      'play': function () {
+        _this4.animationMixer.clipAction(_this4.cubeAnimationClip).play();
+      },
+      'stop': function () {
+        _this4.animationMixer.clipAction(_this4.cubeAnimationClip).stop();
+      }
+    };
+
+    this.gui.add(opts, 'play');
+    this.gui.add(opts, 'stop');
   };
 
   return TestDrawing;
