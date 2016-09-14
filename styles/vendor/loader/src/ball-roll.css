@@ -1,0 +1,98 @@
+[data-loader='ball-roll']
+{
+    position: relative;
+    left: -20px;
+
+    width: 15px;
+    height: 15px;
+
+    -webkit-animation: ball-roll 1s linear infinite alternate;
+       -moz-animation: ball-roll 1s linear infinite alternate;
+            animation: ball-roll 1s linear infinite alternate;
+
+    border-radius: 50%;
+}
+@-webkit-keyframes ball-roll
+{
+    0%
+    {
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    25%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    75%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,1);
+    }
+}
+@-moz-keyframes ball-roll
+{
+    0%
+    {
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    25%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    75%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,1);
+    }
+}
+@-o-keyframes ball-roll
+{
+    0%
+    {
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    25%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    75%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,1);
+    }
+}
+@keyframes ball-roll
+{
+    0%
+    {
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    25%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,2),
+        44px 0 0 0 rgba(255,255,255,.2);
+    }
+    75%
+    {
+        background-color: rgba(255,255,255, .4);
+        box-shadow: 22px 0 0 0 rgba(255,255,255,.2),
+        44px 0 0 0 rgba(255,255,255,1);
+    }
+}

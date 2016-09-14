@@ -1,0 +1,89 @@
+[data-loader='circle-clock']
+{
+    width: 1em;
+    height: 1em;
+
+    -webkit-animation: circle-clock .75s infinite alternate ease-in-out;
+         -o-animation: circle-clock .75s infinite alternate ease-in-out;
+            animation: circle-clock .75s infinite alternate ease-in-out;
+
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 1.5em 0 0 0 #fff;
+}
+@-webkit-keyframes circle-clock
+{
+    0%
+    {
+        -webkit-transform: rotate(-150deg) scale(1);
+            -ms-transform: rotate(-150deg) scale(1);
+             -o-transform: rotate(-150deg) scale(1);
+                transform: rotate(-150deg) scale(1);
+    }
+    100%
+    {
+        -webkit-transform: rotate(210deg) scale(.35);
+            -ms-transform: rotate(210deg) scale(.35);
+             -o-transform: rotate(210deg) scale(.35);
+                transform: rotate(210deg) scale(.35);
+
+        background: rgba(255, 255, 255, .3);
+    }
+}
+@-moz-keyframes circle-clock
+{
+    0%
+    {
+        -webkit-transform: rotate(-150deg) scale(1);
+            -ms-transform: rotate(-150deg) scale(1);
+             -o-transform: rotate(-150deg) scale(1);
+                transform: rotate(-150deg) scale(1);
+    }
+    100%
+    {
+        -webkit-transform: rotate(210deg) scale(.35);
+            -ms-transform: rotate(210deg) scale(.35);
+             -o-transform: rotate(210deg) scale(.35);
+                transform: rotate(210deg) scale(.35);
+
+        background: rgba(255, 255, 255, .3);
+    }
+}
+@-o-keyframes circle-clock
+{
+    0%
+    {
+        -webkit-transform: rotate(-150deg) scale(1);
+            -ms-transform: rotate(-150deg) scale(1);
+             -o-transform: rotate(-150deg) scale(1);
+                transform: rotate(-150deg) scale(1);
+    }
+    100%
+    {
+        -webkit-transform: rotate(210deg) scale(.35);
+            -ms-transform: rotate(210deg) scale(.35);
+             -o-transform: rotate(210deg) scale(.35);
+                transform: rotate(210deg) scale(.35);
+
+        background: rgba(255, 255, 255, .3);
+    }
+}
+@keyframes circle-clock
+{
+    0%
+    {
+        -webkit-transform: rotate(-150deg) scale(1);
+            -ms-transform: rotate(-150deg) scale(1);
+             -o-transform: rotate(-150deg) scale(1);
+                transform: rotate(-150deg) scale(1);
+    }
+    100%
+    {
+        -webkit-transform: rotate(210deg) scale(.35);
+            -ms-transform: rotate(210deg) scale(.35);
+             -o-transform: rotate(210deg) scale(.35);
+                transform: rotate(210deg) scale(.35);
+
+        background: rgba(255, 255, 255, .3);
+    }
+}

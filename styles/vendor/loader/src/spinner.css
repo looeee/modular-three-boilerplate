@@ -1,0 +1,108 @@
+[data-loader='spinner']
+{
+    width: 25px;
+    height: 25px;
+
+    -webkit-animation: spinner 1.2s infinite ease-in-out;
+         -o-animation: spinner 1.2s infinite ease-in-out;
+            animation: spinner 1.2s infinite ease-in-out;
+
+    background-color: #fff;
+    box-shadow: 0 0 10px #fff;
+}
+@-webkit-keyframes spinner
+{
+    0%
+    {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(0) rotateY(0);
+             -o-transform: perspective(120px) rotateX(0) rotateY(0);
+                transform: perspective(120px) rotateX(0) rotateY(0);
+    }
+    50%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+                transform: perspective(120px) rotateX(-180deg) rotateY(0);
+    }
+    100%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+                transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+    }
+}
+@-moz-keyframes spinner
+{
+    0%
+    {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(0) rotateY(0);
+             -o-transform: perspective(120px) rotateX(0) rotateY(0);
+                transform: perspective(120px) rotateX(0) rotateY(0);
+    }
+    50%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+                transform: perspective(120px) rotateX(-180deg) rotateY(0);
+    }
+    100%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+                transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+    }
+}
+@-o-keyframes spinner
+{
+    0%
+    {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(0) rotateY(0);
+             -o-transform: perspective(120px) rotateX(0) rotateY(0);
+                transform: perspective(120px) rotateX(0) rotateY(0);
+    }
+    50%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+                transform: perspective(120px) rotateX(-180deg) rotateY(0);
+    }
+    100%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+                transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+    }
+}
+@keyframes spinner
+{
+    0%
+    {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(0) rotateY(0);
+             -o-transform: perspective(120px) rotateX(0) rotateY(0);
+                transform: perspective(120px) rotateX(0) rotateY(0);
+    }
+    50%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(0);
+                transform: perspective(120px) rotateX(-180deg) rotateY(0);
+    }
+    100%
+    {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+            -ms-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+             -o-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+                transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+    }
+}

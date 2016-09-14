@@ -2,7 +2,7 @@
 // import './setupGlobals.js';
 
 import { TestDrawing } from './drawings/TestDrawing';
-import { initHeartcodeLoader } from './loadingOverlay';
+import { initLoader } from './loadingOverlay';
 
 //Set any config options here
 modularTHREE.config.useLoadingManager = true;
@@ -10,7 +10,7 @@ modularTHREE.config.useLoadingManager = true;
 //Run init() AFTER setting config options
 modularTHREE.init();
 
-if (modularTHREE.config.useLoadingManager) initHeartcodeLoader();
+if (modularTHREE.config.useLoadingManager) initLoader();
 
 const testDrawing = new TestDrawing();
 testDrawing.render();

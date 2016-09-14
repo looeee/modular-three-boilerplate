@@ -45509,6 +45509,14 @@ var Renderer = function () {
     }
   };
 
+  Renderer.prototype.setProperty = function setProperty(property, value) {
+    this.renderer[property] = value;
+  };
+
+  Renderer.prototype.getProperty = function getProperty(property) {
+    return this.renderer[property];
+  };
+
   Renderer.prototype.setSize = function setSize() {
     var w = arguments.length <= 0 || arguments[0] === undefined ? this.spec.width() : arguments[0];
     var h = arguments.length <= 1 || arguments[1] === undefined ? this.spec.height() : arguments[1];

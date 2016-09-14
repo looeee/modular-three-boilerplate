@@ -1,0 +1,104 @@
+[data-loader='circle-scale']
+{
+    position: relative;
+
+    width: 36px;
+}
+[data-loader='circle-scale']:before,
+[data-loader='circle-scale']:after
+{
+    position: absolute;
+    left: 0;
+
+    width: 32px;
+    height: 32px;
+
+    content: '';
+    -webkit-animation: .75s circle-scale infinite linear alternate;
+         -o-animation: .75s circle-scale infinite linear alternate;
+            animation: .75s circle-scale infinite linear alternate;
+
+    border: 3px solid #fff;
+    border-radius: 100%;
+}
+[data-loader='circle-scale']:before
+{
+    margin: 2px;
+
+    -webkit-animation-delay: .35s;
+         -o-animation-delay: .35s;
+            animation-delay: .35s;
+}
+[data-loader='circle-scale']:after
+{
+    width: 36px;
+    height: 36px;
+}
+@-webkit-keyframes circle-scale
+{
+    0%
+    {
+        -webkit-transform: scale(.2);
+            -ms-transform: scale(.2);
+             -o-transform: scale(.2);
+                transform: scale(.2);
+    }
+    100%
+    {
+        -webkit-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+             -o-transform: scale(1.2);
+                transform: scale(1.2);
+    }
+}
+@-moz-keyframes circle-scale
+{
+    0%
+    {
+        -webkit-transform: scale(.2);
+            -ms-transform: scale(.2);
+             -o-transform: scale(.2);
+                transform: scale(.2);
+    }
+    100%
+    {
+        -webkit-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+             -o-transform: scale(1.2);
+                transform: scale(1.2);
+    }
+}
+@-o-keyframes circle-scale
+{
+    0%
+    {
+        -webkit-transform: scale(.2);
+            -ms-transform: scale(.2);
+             -o-transform: scale(.2);
+                transform: scale(.2);
+    }
+    100%
+    {
+        -webkit-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+             -o-transform: scale(1.2);
+                transform: scale(1.2);
+    }
+}
+@keyframes circle-scale
+{
+    0%
+    {
+        -webkit-transform: scale(.2);
+            -ms-transform: scale(.2);
+             -o-transform: scale(.2);
+                transform: scale(.2);
+    }
+    100%
+    {
+        -webkit-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+             -o-transform: scale(1.2);
+                transform: scale(1.2);
+    }
+}

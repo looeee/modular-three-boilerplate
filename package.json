@@ -9,6 +9,7 @@
     "url": ""
   },
   "dependencies": {
+    "css-loading": "^1.4.0",
     "dat-gui": "^0.5.0",
     "gsap": "^1.19.0",
     "modular-three": "^0.1.4",
