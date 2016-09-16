@@ -39,17 +39,7 @@ var Cube = function (_modularTHREE$MeshObj) {
     return possibleConstructorReturn(this, _modularTHREE$MeshObj.call(this));
   }
 
-  Cube.prototype.init = function init() {
-    var texture = void 0;
-    this.loadTexture('images/textures/crate.jpg').then(function (tex) {
-      texture = tex;
-    });
-    var geometry = new THREE.BoxBufferGeometry(20, 20, 20);
-    var material = new THREE.MeshBasicMaterial({
-      map: texture
-    });
-    this.mesh = new THREE.Mesh(geometry, material);
-  };
+  Cube.prototype.init = function init() {};
 
   return Cube;
 }(modularTHREE.MeshObject);
@@ -103,101 +93,44 @@ var TestDrawing = function (_modularTHREE$Drawing) {
     return possibleConstructorReturn(this, _modularTHREE$Drawing.call(this, rendererSpec, cameraSpec));
   }
 
-  TestDrawing.prototype.init = function init() {
-    this.initModels();
-    this.initLighting();
-    this.initPostprocessing();
-    this.initControls();
-  };
-
-  TestDrawing.prototype.initPostprocessing = function initPostprocessing() {
-    // this.addPostShader(THREE.KaleidoShader);
-    this.addPostShader(THREE.VignetteShader, {
-      offset: 0.5,
-      darkness: 7.0
-    });
-
-    this.addPostEffect(new THREE.GlitchPass());
-  };
-
-  TestDrawing.prototype.initModels = function initModels() {
-    var _this2 = this;
-
-    this.loadObject('models/crate/crate.json').then(function (object) {
-      object.scale.set(15, 15, 15);
-      object.position.set(30, -5, 0);
-      _this2.scene.add(object);
-      _this2.cube = object;
-      _this2.initCubeAnimation();
-      _this2.initCubeGUI();
-    });
-  };
-
-  TestDrawing.prototype.initLighting = function initLighting() {
-    var ambient = new THREE.AmbientLight(0xffffff);
-    this.add(ambient);
-  };
-
-  TestDrawing.prototype.initControls = function initControls() {
-    var _this3 = this;
-
-    this.controls = new THREE.OrbitControls(this.camera, this.domElement);
-
-    this.controls.enableDamping = true;
-    this.addPerFrameFunction(function () {
-      _this3.controls.update();
-    });
-  };
-
-  TestDrawing.prototype.initCubeAnimation = function initCubeAnimation() {
-    this.cubeAnimationClip = this.cube.animations[0];
-    this.animationMixer.clipAction(this.cubeAnimationClip);
-  };
-
-  TestDrawing.prototype.initCubeGUI = function initCubeGUI() {
-    var _this4 = this;
-
-    if (this.gui) return;
-
-    this.gui = new dat.GUI();
-
-    var opts = {
-      play: function () {
-        _this4.animationMixer.clipAction(_this4.cubeAnimationClip).play();
-      },
-      stop: function () {
-        _this4.animationMixer.clipAction(_this4.cubeAnimationClip).stop();
-      }
-    };
-
-    this.gui.add(opts, 'play');
-    this.gui.add(opts, 'stop');
-  };
+  TestDrawing.prototype.init = function init() {};
 
   return TestDrawing;
 }(modularTHREE.Drawing);
 
-var initLoader = function () {
+var fadeLoader = function () {
   var loadingOverlay = document.querySelector('#loadingOverlay');
-  modularTHREE.loadingManager.onLoad = function () {
-    loadingOverlay.style.opacity = 0;
-    window.setTimeout(function () {
-      loadingOverlay.classList.add('hide');
-    }, 1000);
-  };
+
+  loadingOverlay.style.opacity = 0;
+  window.setTimeout(function () {
+    loadingOverlay.classList.add('hide');
+  }, 1000);
 };
 
-//import setupGlobals for side effects
-// import './setupGlobals.js';
+var initLoader = function () {
+  //if we are using the loadingManager, wait for it to finish before
+  //fading out the loader
+  if (modularTHREE.config.useLoadingManager) {
+    modularTHREE.loadingManager.onLoad = function () {
+      fadeLoader();
+    };
+  }
+  //otherwise fade it out straightaway
+  else {
+      fadeLoader();
+    }
+};
 
 //Set any config options here
-modularTHREE.config.useLoadingManager = true;
+modularTHREE.config.useLoadingManager = false;
 
 //Run init() AFTER setting config options
 modularTHREE.init();
 
-if (modularTHREE.config.useLoadingManager) initLoader();
+//Run initLoader() AFTER modularTHREE.init()
+initLoader();
 
+//Drawing set up and control goes next
 var testDrawing = new TestDrawing();
 testDrawing.render();
 

@@ -1,16 +1,15 @@
-//import setupGlobals for side effects
-// import './setupGlobals.js';
-
-import { TestDrawing } from './drawings/TestDrawing';
+import { ExampleDrawing } from './drawings/exampleDrawing';
 import { initLoader } from './loadingOverlay';
 
 //Set any config options here
-modularTHREE.config.useLoadingManager = true;
+modularTHREE.config.useLoadingManager = false;
 
 //Run init() AFTER setting config options
 modularTHREE.init();
 
-if (modularTHREE.config.useLoadingManager) initLoader();
+//Run initLoader() AFTER modularTHREE.init()
+initLoader();
 
+//Drawing set up and control goes next
 const testDrawing = new TestDrawing();
 testDrawing.render();

@@ -31,74 +31,11 @@ const cameraSpec = {
   height: () => window.innerHeight,
 };
 
-export class TestDrawing extends modularTHREE.Drawing {
+export class ExampleDrawing extends modularTHREE.Drawing {
   constructor() {
     super(rendererSpec, cameraSpec);
   }
 
   init() {
-    this.initModels();
-    this.initLighting();
-    this.initPostprocessing();
-    this.initControls();
-  }
-
-  initPostprocessing() {
-    // this.addPostShader(THREE.KaleidoShader);
-    this.addPostShader(THREE.VignetteShader, {
-      offset: 0.5,
-      darkness: 7.0,
-    });
-
-    this.addPostEffect(new THREE.GlitchPass());
-  }
-
-  initModels() {
-    this.loadObject('models/crate/crate.json')
-      .then((object) => {
-        object.scale.set(15, 15, 15);
-        object.position.set(30, -5, 0);
-        this.scene.add(object);
-        this.cube = object;
-        this.initCubeAnimation();
-        this.initCubeGUI();
-      });
-  }
-
-  initLighting() {
-    const ambient = new THREE.AmbientLight(0xffffff);
-    this.add(ambient);
-  }
-
-  initControls() {
-    this.controls = new THREE.OrbitControls(this.camera, this.domElement);
-
-    this.controls.enableDamping = true;
-    this.addPerFrameFunction(() => {
-      this.controls.update();
-    });
-  }
-
-  initCubeAnimation() {
-    this.cubeAnimationClip = this.cube.animations[0];
-    this.animationMixer.clipAction(this.cubeAnimationClip);
-  }
-
-  initCubeGUI() {
-    if (this.gui) return;
-
-    this.gui = new dat.GUI();
-
-    const opts = {
-      play: () => {
-        this.animationMixer.clipAction(this.cubeAnimationClip).play();
-      },
-      stop: () => {
-        this.animationMixer.clipAction(this.cubeAnimationClip).stop();
-      },
-    };
-
-    this.gui.add(opts, 'play');
-    this.gui.add(opts, 'stop');
   }
 }

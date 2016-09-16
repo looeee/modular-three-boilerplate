@@ -8,9 +8,11 @@ Includes a Gulpfile which:
 * Compiles [SCSS](http://sass-lang.com/) and applies [Autoprefixer](https://github.com/postcss/autoprefixer) to your CSS.
 * Runs [Livereload](http://livereload.com/).
 
+It also comes with a simple [loading overlay](http://jovey-zheng.github.io/loader/).
+
 Detailed instructions on using ModularTHREE are [**here**](https://www.npmjs.com/package/modular-three).
 
-### NOTE: ModularTHREE is at  avery early development stage. Features are changing rapidly and this readme may be out of date. You probably shouldn't use this yet.  ###
+### NOTE: ModularTHREE is at an early development stage. Features may change rapidly. ###
 
 Requirements
 ------
@@ -36,7 +38,7 @@ Then install the required NPM modules
 npm install
 ```
 
-View index.html in your browser - it should show a falling wooden cube if everything is working.
+View index.html in your browser - it should show an empty light purple screen if everything is working.
 
 Run the default **Gulp** task to watch for changes to code in the src and scss folders and start the Livereload server:
 

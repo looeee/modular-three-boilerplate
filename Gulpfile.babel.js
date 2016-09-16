@@ -118,7 +118,7 @@ gulp.task('css', () => {
       browsers: ['last 3 version', 'ie 9'],
       cascade: true,
     }))
-    .pipe(cleanCSS({}, (details) => {
+    .pipe(cleanCSS({debug: true}, (details) => {
       gutil.log(gutil.colors.bgBlue(
         `\nCSS, preminified size: ${details.stats.originalSize}\n`
         + `Minified size: ${details.stats.minifiedSize}\n`
@@ -130,7 +130,7 @@ gulp.task('css', () => {
 });
 
 gulp.task('reload', () => {
-  gulp.src(['src/**/*.js', '!node_modules/**/*.*'], {
+  gulp.src(['./index.html', '!node_modules/**/*.*'], {
     read: false,
   })
   .pipe(livereload());
