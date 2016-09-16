@@ -1,5 +1,5 @@
 {
-  "name": "modular-three_boilerpate",
+  "name": "modular-three-boilerplate",
   "version": "0.1.0",
   "description": "Boilerplate and Gulp build setup for ModularTHREE",
   "main": "Gulpfile.babel.js",
