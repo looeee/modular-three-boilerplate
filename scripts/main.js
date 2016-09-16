@@ -162,10 +162,10 @@ var TestDrawing = function (_modularTHREE$Drawing) {
     this.gui = new dat.GUI();
 
     var opts = {
-      'play': function () {
+      play: function () {
         _this4.animationMixer.clipAction(_this4.cubeAnimationClip).play();
       },
-      'stop': function () {
+      stop: function () {
         _this4.animationMixer.clipAction(_this4.cubeAnimationClip).stop();
       }
     };
@@ -180,11 +180,10 @@ var TestDrawing = function (_modularTHREE$Drawing) {
 var initLoader = function () {
   var loadingOverlay = document.querySelector('#loadingOverlay');
   modularTHREE.loadingManager.onLoad = function () {
-    loadingOverlay.classList.add('hide');
-    // TweenLite.to(loadingOverlay, 2, {
-    //   opacity: 0,
-    //   onComplete: () => loadingOverlay.classList.add('hide'),
-    // });
+    loadingOverlay.style.opacity = 0;
+    window.setTimeout(function () {
+      loadingOverlay.classList.add('hide');
+    }, 1000);
   };
 };
 

@@ -130,7 +130,7 @@ gulp.task('css', () => {
 });
 
 gulp.task('reload', () => {
-  gulp.src(['!node_modules/**/*.*'], {
+  gulp.src(['src/**/*.js', '!node_modules/**/*.*'], {
     read: false,
   })
   .pipe(livereload());

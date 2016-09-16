@@ -90,10 +90,10 @@ export class TestDrawing extends modularTHREE.Drawing {
     this.gui = new dat.GUI();
 
     const opts = {
-      'play': () => {
+      play: () => {
         this.animationMixer.clipAction(this.cubeAnimationClip).play();
       },
-      'stop': () => {
+      stop: () => {
         this.animationMixer.clipAction(this.cubeAnimationClip).stop();
       },
     };
