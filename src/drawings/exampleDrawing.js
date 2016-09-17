@@ -1,4 +1,4 @@
-import { Cube } from '../meshObjects/cube';
+// import { Cube } from '../meshObjects/cube';
 
 // The following spec objects are optional and can be omitted
 //for the defaults shown
