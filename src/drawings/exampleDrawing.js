@@ -20,8 +20,8 @@ const rendererSpec = {
 // Optional
 const cameraSpec = {
   type: 'PerspectiveCamera', //Or 'OrthographicCamera'
-  near: 10,
-  far: -10,
+  near: 1,
+  far: 1000,
   position: new THREE.Vector3(0, 0, 100),
   //PerspectiveCamera only
   fov: 45,
